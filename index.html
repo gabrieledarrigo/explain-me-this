@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Please, explain me this!</title>
+
+    <meta name="description" content="Javascript this: how to understand it">
+    <meta name="author" content="Gabriele D'Arrigo - gdarrigo@ebay.com">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+</head>
+
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section id="intro">
+            <header>
+                <h1>This</h1>
+                <h3>The most infamous Javascript keyword</h3>
+            </header>
+
+            <pre>
+                <code>
+                    var self = this; // Dammi una lametta...
+                </code>
+            </pre>
+        </section>
+
+        <section id="context">
+            <h3>
+                This keyword can be used everywhere, not only in objects:
+            </h3>
+
+            <ul>
+                <li>
+                    In functions
+                </li>
+                <li>
+                    Outside functions (top-level scope)
+                </li>
+                <li>
+                    In a string passed to eval() (not covered here)
+                </li>
+            </ul>
+        </section>
+
+        <section id="functions-context">
+            <h3>In functions</h3>
+
+            <p>
+                The most common use are:
+            </p>
+
+            <ul>
+                <li>
+                    Functions (<strong class="hljs-string">this</strong> refers to the global object, undefined in strict mode)
+                </li>
+                <li>
+                    Constructors (<strong class="hljs-string">this</strong> refers to the object instance)
+                </li>
+                <li>
+                    Methods (<strong class="hljs-string">this</strong> refers to the receiver of the method call)
+                </li>
+            </ul>
+        </section>
+
+        <section id="function">
+            <section id="modes">
+                <h4>Functions</h4>
+
+                <p>
+                    When you call a function the value of <strong class="hljs-string">this</strong> depends on the mode:
+                    <strong class="hljs-keyword">normal</strong> or <strong class="hljs-keyword">strict</strong>
+                </p>
+            </section>
+
+            <section id="normal-mode">
+                In normal execution mode <strong class="hljs-string">this</strong> point to the global object: <br />
+                <strong class="hljs-keyword">window</strong> in Browsers, <strong class="hljs-keyword">global</strong>
+                in Node.js or other server side environment.
+
+                <pre>
+                    <code>
+                        function log() {
+                            console.log(this);
+                        }
+
+                        log(); // window
+                    </code>
+                </pre>
+            </section>
+
+            <section id="strict-mode">
+                <p>
+                    In strict mode the value of <strong class="hljs-string">this</strong> is <strong class="hljs-keyword">undefined</strong>
+                </p>
+                <pre>
+                    <code>
+                        'use strict';
+
+                        function log() {
+                            console.log(this);
+                        }
+
+                        log(); // undefined
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section id="constructor">
+            <section id="what-is">
+                <h4>Constructors</h4>
+
+                <p>
+                    A constructor is a function invoked with <strong class="hljs-keyword">new</strong> operator that
+                    return the instance of an object.
+                </p>
+            </section>
+
+            <section id="invokation">
+                <p>
+                    When a constructor is invoked with <strong class="hljs-keyword">new</strong>, <strong class="hljs-string">this</strong>
+                    is bound to the newly created object.
+                </p>
+
+                <pre>
+                    <code>
+                        function Dog(name) {
+                            this.name = name;
+                        }
+
+                        let pluto = new Dog('Pluto');
+
+                        pluto.name; // 'Pluto'
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section id="methods">
+            <h4>Methods</h4>
+
+            <p>
+                <strong class="hljs-string">this</strong> refers to the receiver, the object on which the method has been called.
+            </p>
+
+            <pre>
+                <code>
+                    let obj = {
+                        prop: 'a prop',
+                        method() {
+                            console.log(this.prop);
+                        }
+                    };
+
+                    obj.method(); // 'a prop'
+                </code>
+            </pre>
+        </section>
+
+        <section id="top-level">
+            <h3>Top level scope</h3>
+
+            <pre>
+                <code>
+                    <script>
+                        console.log(this); // window
+                    </script>
+                </code>
+            </pre>
+        </section>
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'slide',
+        dependencies: [{
+            src: 'plugin/highlight/highlight.js',
+            async: true,
+            callback() {
+                hljs.initHighlightingOnLoad();
+            }
+        }]
+    });
+</script>
+</body>
+</html>
