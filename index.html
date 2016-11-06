@@ -16,19 +16,36 @@
 
     <!-- Theme used for syntax highlighting of code -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
+    <style>
+        pre.block-code {
+            box-shadow: none;
+        }
+
+        pre.block-code code {
+            padding: 10px;
+        }
+
+        .reveal .slides section .fragment.current-visible.current-fragment {
+            display: block;
+        }
+
+        .reveal .slides section .fragment.current-visible {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
 <div class="reveal">
     <div class="slides">
-        <section id="intro">
+        <section id="intro" data-background="http://i.giphy.com/l46CsaquyQudrz3Lq.gif">
             <header>
                 <h1>This</h1>
                 <h3>The most infamous Javascript keyword</h3>
             </header>
 
-            <pre>
-                <code>
+            <pre class="block-code">
+                <code class="javascript">
                     var self = this; // Dammi una lametta...
                 </code>
             </pre>
@@ -52,29 +69,33 @@
             </ul>
         </section>
 
-        <section id="functions-context">
-            <h3>In functions</h3>
-
-            <p>
-                The most common use are:
-            </p>
-
-            <ul>
-                <li>
-                    Functions (<strong class="hljs-string">this</strong> refers to the global object, undefined in strict mode)
-                </li>
-                <li>
-                    Constructors (<strong class="hljs-string">this</strong> refers to the object instance)
-                </li>
-                <li>
-                    Methods (<strong class="hljs-string">this</strong> refers to the receiver of the method call)
-                </li>
-            </ul>
-        </section>
-
         <section id="function">
+            <section id="functions-context">
+                <h3>
+                    In functions
+                </h3>
+
+                <p>
+                    The most common use are:
+                </p>
+
+                <ul>
+                    <li>
+                        Functions (<strong class="hljs-string">this</strong> refers to the global object, undefined in strict mode)
+                    </li>
+                    <li>
+                        Constructors (<strong class="hljs-string">this</strong> refers to the object instance)
+                    </li>
+                    <li>
+                        Methods (<strong class="hljs-string">this</strong> refers to the receiver of the method call)
+                    </li>
+                </ul>
+            </section>
+
             <section id="modes">
-                <h4>Functions</h4>
+                <h4>
+                    Functions
+                </h4>
 
                 <p>
                     When you call a function the value of <strong class="hljs-string">this</strong> depends on the mode:
@@ -84,11 +105,11 @@
 
             <section id="normal-mode">
                 In normal execution mode <strong class="hljs-string">this</strong> point to the global object: <br />
-                <strong class="hljs-keyword">window</strong> in Browsers, <strong class="hljs-keyword">global</strong>
+                <strong class="hljs-keyword">window</strong> in browsers, <strong class="hljs-keyword">global</strong>
                 in Node.js or other server side environment.
 
-                <pre>
-                    <code>
+                <pre class="block-code">
+                    <code class="javascript">
                         function log() {
                             console.log(this);
                         }
@@ -102,8 +123,9 @@
                 <p>
                     In strict mode the value of <strong class="hljs-string">this</strong> is <strong class="hljs-keyword">undefined</strong>
                 </p>
-                <pre>
-                    <code>
+
+                <pre class="block-code">
+                    <code class="javascript">
                         'use strict';
 
                         function log() {
@@ -114,11 +136,11 @@
                     </code>
                 </pre>
             </section>
-        </section>
 
-        <section id="constructor">
-            <section id="what-is">
-                <h4>Constructors</h4>
+            <section id="constructor">
+                <h4>
+                    Constructors
+                </h4>
 
                 <p>
                     A constructor is a function invoked with <strong class="hljs-keyword">new</strong> operator that
@@ -126,14 +148,14 @@
                 </p>
             </section>
 
-            <section id="invokation">
+            <section id="constructor-invocation" data-background="http://i.giphy.com/VhqXbHrNvkH3G.gif">
                 <p>
                     When a constructor is invoked with <strong class="hljs-keyword">new</strong>, <strong class="hljs-string">this</strong>
                     is bound to the newly created object.
                 </p>
 
-                <pre>
-                    <code>
+                <pre class="block-code">
+                    <code class="javascript">
                         function Dog(name) {
                             this.name = name;
                         }
@@ -144,39 +166,133 @@
                     </code>
                 </pre>
             </section>
-        </section>
 
-        <section id="methods">
-            <h4>Methods</h4>
+            <section id="methods">
+                <h4>
+                    Methods
+                </h4>
 
-            <p>
-                <strong class="hljs-string">this</strong> refers to the receiver, the object on which the method has been called.
-            </p>
+                <p>
+                    <strong class="hljs-string">this</strong> refers to the receiver, the object on which the method has been called.
+                </p>
 
-            <pre>
-                <code>
-                    let obj = {
-                        prop: 'a prop',
-                        method() {
-                            console.log(this.prop);
-                        }
-                    };
+                <pre class="block-code">
+                    <code class="javascript">
+                        let obj = {
+                            prop: 'a prop',
+                            method() {
+                                console.log(this.prop);
+                            }
+                        };
 
-                    obj.method(); // 'a prop'
-                </code>
-            </pre>
+                        obj.method(); // 'a prop'
+                    </code>
+                </pre>
+            </section>
         </section>
 
         <section id="top-level">
-            <h3>Top level scope</h3>
+            <h3>
+                Top level scope
+            </h3>
 
-            <pre>
-                <code>
+            <p>
+                In browsers, the top-level scope is the global scope and <strong class="hljs-string">this</strong> refers
+                to the global object (<strong class="hljs-keyword">window</strong>)
+            </p>
+
+            <pre class="block-code">
+                <code class="html">
                     <script>
                         console.log(this); // window
                     </script>
                 </code>
             </pre>
+        </section>
+
+        <section id="mistakes-fixes">
+            <section id="common-mistakes">
+                <h3>
+                    Mistakes and fixes
+                </h3>
+
+                <p>
+                    Usually there are three common mistakes that every good guys encounter sooner or later:
+                </p>
+
+                <ul>
+                    <li>
+                        Forgetting <strong class="hljs-keyword">new</strong> operator
+                    </li>
+                    <li>
+                        Shadowing the value of <strong class="hljs-string">this</strong>
+                    </li>
+                    <li>
+                        Extracting methods invocation
+                    </li>
+                </ul>
+            </section>
+
+            <section id="forgetting-new">
+                <article>
+                    <h3>
+                        Forgetting <strong class="hljs-keyword">new</strong> operator
+                    </h3>
+
+                    <p>
+                        When you call a constructor without the <strong class="hljs-keyword">new</strong> operator you are invoking
+                        it like a real function! <br />
+                    </p>
+                </article>
+
+                <article>
+                    <pre class="block-code">
+                        <code class="javascript">
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
+}
+
+let point = Point(10, 20);
+
+// Constructor doesn't return the object instance!
+console.log(pluto); // undefined
+
+// Global variables created! Gomblotto!1!1
+window.x;   // 10
+window.y;   // 20
+                        </code>
+                    </pre>
+                </article>
+            </section>
+
+            <section id="forgetting-new-fix" data-background="http://i.giphy.com/90F8aUepslB84.gif">
+                <article>
+                    <h3>
+                        Fix
+                    </h3>
+
+                    <pre class="block-code">
+                        <code class="javascript">
+'use strict';
+
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
+}
+
+// TypeError: Cannot set property 'x' of undefined
+let point = Point(10, 20);
+                        </code>
+                    </pre>
+                </article>
+            </section>
+
+            <section id="shadowing">
+                <h4>
+                    Shadowing the value of <strong class="hljs-string">this</strong>
+                </h4>
+            </section>
         </section>
     </div>
 </div>
