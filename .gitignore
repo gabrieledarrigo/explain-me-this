@@ -1,0 +1,11 @@
+.idea/
+*.iml
+*.iws
+*.eml
+out/
+.DS_Store
+tmp/**
+node_modules/
+.sass-cache
+css/reveal.min.css
+js/reveal.min.js
