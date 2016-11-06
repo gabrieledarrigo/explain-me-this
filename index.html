@@ -23,6 +23,7 @@
 
         pre.block-code code {
             padding: 10px;
+            background-color: rgba(63, 63, 63, 0.95);
         }
 
         .reveal .slides section .fragment.current-visible.current-fragment {
@@ -148,7 +149,7 @@
                 </p>
             </section>
 
-            <section id="constructor-invocation" data-background="http://i.giphy.com/VhqXbHrNvkH3G.gif">
+            <section id="constructor-invocation">
                 <p>
                     When a constructor is invoked with <strong class="hljs-keyword">new</strong>, <strong class="hljs-string">this</strong>
                     is bound to the newly created object.
@@ -213,12 +214,8 @@
         <section id="mistakes-fixes">
             <section id="common-mistakes">
                 <h3>
-                    Mistakes and fixes
+                    Common mistakes
                 </h3>
-
-                <p>
-                    Usually there are three common mistakes that every good guys encounter sooner or later:
-                </p>
 
                 <ul>
                     <li>
@@ -234,20 +231,17 @@
             </section>
 
             <section id="forgetting-new">
-                <article>
-                    <h3>
-                        Forgetting <strong class="hljs-keyword">new</strong> operator
-                    </h3>
+                <h4>
+                    Forgetting <strong class="hljs-keyword">new</strong> operator
+                </h4>
 
-                    <p>
-                        When you call a constructor without the <strong class="hljs-keyword">new</strong> operator you are invoking
-                        it like a real function! <br />
-                    </p>
-                </article>
+                <p>
+                    When you call a constructor without the <strong class="hljs-keyword">new</strong> operator you are invoking
+                    it like a real function! <br />
+                </p>
 
-                <article>
-                    <pre class="block-code">
-                        <code class="javascript">
+                <pre class="block-code">
+                    <code class="javascript">
 function Point(x, y) {
     this.x = x;
     this.y = y;
@@ -261,19 +255,17 @@ console.log(pluto); // undefined
 // Global variables created! Gomblotto!1!1
 window.x;   // 10
 window.y;   // 20
-                        </code>
-                    </pre>
-                </article>
+                    </code>
+                </pre>
             </section>
 
             <section id="forgetting-new-fix" data-background="http://i.giphy.com/90F8aUepslB84.gif">
-                <article>
-                    <h3>
-                        Fix
-                    </h3>
+                <h4>
+                    Fix
+                </h4>
 
-                    <pre class="block-code">
-                        <code class="javascript">
+                <pre class="block-code">
+                    <code class="javascript">
 'use strict';
 
 function Point(x, y) {
@@ -283,15 +275,138 @@ function Point(x, y) {
 
 // TypeError: Cannot set property 'x' of undefined
 let point = Point(10, 20);
-                        </code>
-                    </pre>
-                </article>
+                    </code>
+                </pre>
             </section>
 
             <section id="shadowing">
                 <h4>
                     Shadowing the value of <strong class="hljs-string">this</strong>
                 </h4>
+
+                <p>
+                    Sometimes we forgot about Javascript lexical scope!
+                </p>
+
+                <pre class="block-code">
+                    <code class="javascript">
+let component = {
+    width: 800,
+    init() {
+        document.addEventListener('click', function(e) {
+            console.log(this.width);
+        });
+    }
+};
+
+// On document's click this.width is undefined
+component.init();
+                    </code>
+                </pre>
+            </section>
+
+            <section id="shadowing-fix-one" data-background="http://i.giphy.com/ZFTKZ8zwj38gE.gif">
+                <h4>
+                    FIX
+                </h4>
+
+                <p>
+                    We can store the value of <strong class="hljs-string">this</strong>
+                </p>
+
+                <pre class="block-code">
+                    <code class="javascript">
+let component = {
+    width: 800,
+    init() {
+        // Woooooo
+        let self = this;
+
+        document.addEventListener('click', function(e) {
+            console.log(self.width);
+        });
+    }
+};
+
+component.init();
+                    </code>
+                </pre>
+            </section>
+
+            <section id="shadowing-fix-two" data-background="http://i.giphy.com/rIq6ASPIqo2k0.gif">
+                <h4>
+                    FIX
+                </h4>
+
+                <p>
+                    We can use a sexy <strong class="hljs-keyword">arrow function</strong>*
+                </p>
+
+                <pre class="block-code">
+                    <code class="javascript">
+let component = {
+    width: 800,
+    init() {
+        document.addEventListener('click', (e) => {
+            console.log(this.width);
+        });
+    }
+};
+
+component.init();
+                    </code>
+                </pre>
+
+                <small>*only for ES6 brave guys!</small>
+            </section>
+
+            <section id="shadowing-fix-three" data-background="http://i.giphy.com/Czak1L6uy06iI.gif">
+                <h4>
+                    FIX
+                </h4>
+
+                <p>
+                    Or use <strong class="hljs-keyword">Function.prototype.bind</strong>*
+                </p>
+
+                <pre class="block-code">
+                    <code class="javascript">
+let component = {
+    width: 800,
+    init() {
+        document.addEventListener('click', function(e) {
+            console.log(this.width);
+        }.bind(this));
+    }
+};
+
+component.init();
+                    </code>
+                </pre>
+            </section>
+
+            <section id="extracting">
+                <h4>
+                    Extracting methods invocation
+                </h4>
+
+                <p>
+                    If we retrieve the value of a method, instead of invoking it, we turn that method into a function <br />
+                    pointing <strong class="hljs-string">this</strong> to the global object!
+                </p>
+
+                <pre class="block-code">
+                    <code class="javascript">
+                        let counter = {
+                            count: 0,
+                            increment() {
+                                this.count++;
+                            }
+                        };
+
+                        setInterval(counter.increment, 1000);
+                    </code>
+                </pre>
             </section>
         </section>
     </div>
