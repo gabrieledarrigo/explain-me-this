@@ -141,39 +141,29 @@
             <section id="change-value-this">
                 <p>
                     We can arbitrarily change the value of <strong class="hljs-string">this</strong> with two function:
-                    <strong class="hljs-keyword">Function.prototype.call</strong>
-                    and <strong class="hljs-keyword">Function.prototype.apply</strong>
                 </p>
 
-                <pre class="block-code">
-                    <code class="javascript">
-                        'use strict';
-
-                        let robot = {
-                            name: 'Robocop'
-                        };
-
-                        function kill(toKill) {
-                            console.log(this.name + ' will kill ' + toKill);
-                        }
-
-                        kill.call(robot, 'bad guys') // Robocop will kill bad guys
-                    </code>
-                </pre>
+                <ul>
+                    <li>
+                        <strong class="hljs-keyword">Function.prototype.call</strong>
+                    </li>
+                    <li>
+                        <strong class="hljs-keyword">Function.prototype.apply</strong>
+                    </li>
+                </ul>
 
                 <pre class="block-code">
                     <code class="javascript">
-                        'use strict';
+let robot = {
+    name: 'Robocop'
+};
 
-                        let robot = {
-                            name: 'Robocop'
-                        };
+function kill(toKill) {
+    console.log(this.name + ' will kill ' + toKill);
+}
 
-                        function kill(toKill) {
-                            console.log(this.name + ' will kill ' + toKill);
-                        }
-
-                        kill.apply(robot, ['bad guys']) // Robocop will kill bad guys
+kill.call(robot, 'you')     // Robocop will kill you
+kill.apply(robot, ['you'])  // Robocop will kill you
                     </code>
                 </pre>
             </section>
@@ -184,7 +174,7 @@
                 </h4>
 
                 <p>
-                    A constructor is a function invoked with <strong class="hljs-keyword">new</strong> operator that
+                    A constructor is a function invoked with the <strong class="hljs-keyword">new</strong> operator that
                     return the instance of an object.
                 </p>
             </section>
@@ -290,7 +280,7 @@ function Point(x, y) {
 let point = Point(10, 20);
 
 // Constructor doesn't return the object instance!
-console.log(pluto); // undefined
+console.log(point); // undefined
 
 // Global variables created! Gomblotto!1!1
 window.x;   // 10
@@ -387,7 +377,7 @@ component.init();
 let component = {
     width: 800,
     init() {
-        document.addEventListener('click', (e) => {
+        document.addEventListener('click', e => {
             console.log(this.width);
         });
     }
