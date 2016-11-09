@@ -138,6 +138,46 @@
                 </pre>
             </section>
 
+            <section id="change-value-this">
+                <p>
+                    We can arbitrarily change the value of <strong class="hljs-string">this</strong> with two function:
+                    <strong class="hljs-keyword">Function.prototype.call</strong>
+                    and <strong class="hljs-keyword">Function.prototype.apply</strong>
+                </p>
+
+                <pre class="block-code">
+                    <code class="javascript">
+                        'use strict';
+
+                        let robot = {
+                            name: 'Robocop'
+                        };
+
+                        function kill(toKill) {
+                            console.log(this.name + ' will kill ' + toKill);
+                        }
+
+                        kill.call(robot, 'bad guys') // Robocop will kill bad guys
+                    </code>
+                </pre>
+
+                <pre class="block-code">
+                    <code class="javascript">
+                        'use strict';
+
+                        let robot = {
+                            name: 'Robocop'
+                        };
+
+                        function kill(toKill) {
+                            console.log(this.name + ' will kill ' + toKill);
+                        }
+
+                        kill.apply(robot, ['bad guys']) // Robocop will kill bad guys
+                    </code>
+                </pre>
+            </section>
+
             <section id="constructor">
                 <h4>
                     Constructors
@@ -151,8 +191,8 @@
 
             <section id="constructor-invocation">
                 <p>
-                    When a constructor is invoked with <strong class="hljs-keyword">new</strong>, <strong class="hljs-string">this</strong>
-                    is bound to the newly created object.
+                    When a constructor is invoked with <strong class="hljs-keyword">new</strong>,
+                    <strong class="hljs-string">this</strong> is bound to the newly created object.
                 </p>
 
                 <pre class="block-code">
@@ -366,7 +406,7 @@ component.init();
                 </h4>
 
                 <p>
-                    Or use <strong class="hljs-keyword">Function.prototype.bind</strong>*
+                    Or use <strong class="hljs-keyword">Function.prototype.bind</strong>
                 </p>
 
                 <pre class="block-code">
@@ -397,17 +437,50 @@ component.init();
 
                 <pre class="block-code">
                     <code class="javascript">
-                        let counter = {
-                            count: 0,
-                            increment() {
-                                this.count++;
-                            }
-                        };
+let counter = {
+    count: 0,
+    increment() {
+        this.count++;
+        console.log(this.count);
+    }
+};
 
-                        setInterval(counter.increment, 1000);
+setInterval(counter.increment, 1000);
                     </code>
                 </pre>
             </section>
+
+            <section id="extracting-fix">
+                <h4>
+                    Fix
+                </h4>
+
+                <p>
+                    Use <strong class="hljs-keyword">Function.prototype.bind</strong> to create a new function with
+                    <strong class="hljs-string">this</strong> bound
+                    to the right object.
+                </p>
+
+                <pre class="block-code">
+                    <code class="javascript">
+let counter = {
+    count: 0,
+    increment() {
+        this.count++;
+        console.log(this.count);
+    }
+};
+
+setInterval(counter.increment.bind(counter), 1000);
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section id="the-end" data-background="http://i.giphy.com/nguAwtOo4nxAY.gif">
+            <h2>
+                Thank you!
+            </h2>
         </section>
     </div>
 </div>
