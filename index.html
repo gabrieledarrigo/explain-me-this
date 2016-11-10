@@ -26,6 +26,10 @@
             background-color: rgba(63, 63, 63, 0.95);
         }
 
+        pre.block-code code span.line-number {
+            margin-right: 20px;
+        }
+
         .reveal .slides section .fragment.current-visible.current-fragment {
             display: block;
         }
@@ -46,7 +50,7 @@
             </header>
 
             <pre class="block-code">
-                <code class="javascript">
+                <code class="javascript line-numbers">
                     var self = this; // Dammi una lametta...
                 </code>
             </pre>
@@ -109,14 +113,12 @@
                 <strong class="hljs-keyword">window</strong> in browsers, <strong class="hljs-keyword">global</strong>
                 in Node.js or other server side environment.
 
-                <pre class="block-code">
-                    <code class="javascript">
-                        function log() {
-                            console.log(this);
-                        }
+                <pre class="block-code" contenteditable="true">
+<code class="javascript line-numbers">function log() {
+    console.log(this);
+}
 
-                        log(); // window
-                    </code>
+log(); // window</code>
                 </pre>
             </section>
 
@@ -125,16 +127,15 @@
                     In strict mode the value of <strong class="hljs-string">this</strong> is <strong class="hljs-keyword">undefined</strong>
                 </p>
 
-                <pre class="block-code">
-                    <code class="javascript">
-                        'use strict';
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
+'use strict';
 
-                        function log() {
-                            console.log(this);
-                        }
+function log() {
+    console.log(this);
+}
 
-                        log(); // undefined
-                    </code>
+log(); // undefined</code>
                 </pre>
             </section>
 
@@ -152,8 +153,8 @@
                     </li>
                 </ul>
 
-                <pre class="block-code">
-                    <code class="javascript">
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
 let robot = {
     name: 'Robocop'
 };
@@ -163,8 +164,7 @@ function kill(toKill) {
 }
 
 kill.call(robot, 'you')     // Robocop will kill you
-kill.apply(robot, ['you'])  // Robocop will kill you
-                    </code>
+kill.apply(robot, ['you'])  // Robocop will kill you</code>
                 </pre>
             </section>
 
@@ -185,16 +185,15 @@ kill.apply(robot, ['you'])  // Robocop will kill you
                     <strong class="hljs-string">this</strong> is bound to the newly created object.
                 </p>
 
-                <pre class="block-code">
-                    <code class="javascript">
-                        function Dog(name) {
-                            this.name = name;
-                        }
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
+function Dog(name) {
+    this.name = name;
+}
 
-                        let pluto = new Dog('Pluto');
+let pluto = new Dog('Pluto');
 
-                        pluto.name; // 'Pluto'
-                    </code>
+pluto.name; // 'Pluto'</code>
                 </pre>
             </section>
 
@@ -207,17 +206,16 @@ kill.apply(robot, ['you'])  // Robocop will kill you
                     <strong class="hljs-string">this</strong> refers to the receiver, the object on which the method has been called.
                 </p>
 
-                <pre class="block-code">
-                    <code class="javascript">
-                        let obj = {
-                            prop: 'a prop',
-                            method() {
-                                console.log(this.prop);
-                            }
-                        };
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
+let obj = {
+    prop: 'a prop',
+    method() {
+        console.log(this.prop);
+    }
+};
 
-                        obj.method(); // 'a prop'
-                    </code>
+obj.method(); // 'a prop'</code>
                 </pre>
             </section>
         </section>
@@ -232,12 +230,11 @@ kill.apply(robot, ['you'])  // Robocop will kill you
                 to the global object (<strong class="hljs-keyword">window</strong>)
             </p>
 
-            <pre class="block-code">
-                <code class="html">
+            <pre class="block-code" contenteditable="true">
+                <code class="line-numbers">
                     <script>
                         console.log(this); // window
-                    </script>
-                </code>
+                    </script></code>
             </pre>
         </section>
 
@@ -270,8 +267,8 @@ kill.apply(robot, ['you'])  // Robocop will kill you
                     it like a real function! <br />
                 </p>
 
-                <pre class="block-code">
-                    <code class="javascript">
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
 function Point(x, y) {
     this.x = x;
     this.y = y;
@@ -284,8 +281,7 @@ console.log(point); // undefined
 
 // Global variables created! Gomblotto!1!1
 window.x;   // 10
-window.y;   // 20
-                    </code>
+window.y;   // 20</code>
                 </pre>
             </section>
 
@@ -294,8 +290,8 @@ window.y;   // 20
                     Fix
                 </h4>
 
-                <pre class="block-code">
-                    <code class="javascript">
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
 'use strict';
 
 function Point(x, y) {
@@ -304,8 +300,7 @@ function Point(x, y) {
 }
 
 // TypeError: Cannot set property 'x' of undefined
-let point = Point(10, 20);
-                    </code>
+let point = Point(10, 20);</code>
                 </pre>
             </section>
 
@@ -318,8 +313,8 @@ let point = Point(10, 20);
                     Sometimes we forgot about Javascript lexical scope!
                 </p>
 
-                <pre class="block-code">
-                    <code class="javascript">
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
 let component = {
     width: 800,
     init() {
@@ -330,8 +325,7 @@ let component = {
 };
 
 // On document's click this.width is undefined
-component.init();
-                    </code>
+component.init();</code>
                 </pre>
             </section>
 
@@ -344,8 +338,8 @@ component.init();
                     We can store the value of <strong class="hljs-string">this</strong>
                 </p>
 
-                <pre class="block-code">
-                    <code class="javascript">
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
 let component = {
     width: 800,
     init() {
@@ -358,8 +352,7 @@ let component = {
     }
 };
 
-component.init();
-                    </code>
+component.init();</code>
                 </pre>
             </section>
 
@@ -372,8 +365,8 @@ component.init();
                     We can use a sexy <strong class="hljs-keyword">arrow function</strong>*
                 </p>
 
-                <pre class="block-code">
-                    <code class="javascript">
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
 let component = {
     width: 800,
     init() {
@@ -383,8 +376,7 @@ let component = {
     }
 };
 
-component.init();
-                    </code>
+component.init();</code>
                 </pre>
 
                 <small>*only for ES6 brave guys!</small>
@@ -399,8 +391,8 @@ component.init();
                     Or use <strong class="hljs-keyword">Function.prototype.bind</strong>
                 </p>
 
-                <pre class="block-code">
-                    <code class="javascript">
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
 let component = {
     width: 800,
     init() {
@@ -410,8 +402,7 @@ let component = {
     }
 };
 
-component.init();
-                    </code>
+component.init();</code>
                 </pre>
             </section>
 
@@ -425,8 +416,8 @@ component.init();
                     pointing <strong class="hljs-string">this</strong> to the global object!
                 </p>
 
-                <pre class="block-code">
-                    <code class="javascript">
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
 let counter = {
     count: 0,
     increment() {
@@ -435,8 +426,7 @@ let counter = {
     }
 };
 
-setInterval(counter.increment, 1000);
-                    </code>
+setInterval(counter.increment, 1000);</code>
                 </pre>
             </section>
 
@@ -451,8 +441,8 @@ setInterval(counter.increment, 1000);
                     to the right object.
                 </p>
 
-                <pre class="block-code">
-                    <code class="javascript">
+                <pre class="block-code" contenteditable="true">
+                    <code class="javascript line-numbers">
 let counter = {
     count: 0,
     increment() {
@@ -461,8 +451,7 @@ let counter = {
     }
 };
 
-setInterval(counter.increment.bind(counter), 1000);
-                    </code>
+setInterval(counter.increment.bind(counter), 1000);</code>
                 </pre>
             </section>
         </section>
@@ -486,11 +475,13 @@ setInterval(counter.increment.bind(counter), 1000);
         center: true,
         transition: 'slide',
         dependencies: [{
-            src: 'plugin/highlight/highlight.js',
+            src: 'plugins/highlight/highlight.js',
             async: true,
             callback() {
                 hljs.initHighlightingOnLoad();
             }
+        }, {
+            src: 'plugins/line-numbers/line-numbers.js'
         }]
     });
 </script>
