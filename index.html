@@ -37,6 +37,25 @@
         .reveal .slides section .fragment.current-visible {
             display: none;
         }
+
+        .hidden-link {
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .hidden-link:active,
+        .hidden-link:focus,
+        .hidden-link:hover,
+        .hidden-link:visited {
+            cursor: text;
+            text-decoration: none;
+        }
+
+        .background-black {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+        }
+
     </style>
 </head>
 
@@ -69,7 +88,7 @@
                     Outside functions (top-level scope)
                 </li>
                 <li>
-                    In a string passed to eval() (not covered here)
+                    In a string passed to eval() (not covered <a href="#/eval" class="hidden-link">here</a>)
                 </li>
             </ul>
         </section>
@@ -461,6 +480,70 @@ setInterval(counter.increment.bind(counter), 1000);</code>
                 Thank you!
             </h2>
         </section>
+
+        <section id="eval">
+            <section id="eval-context" data-background="http://i.giphy.com/oKVs1VY0MKfvO.gif">
+
+                <div class="background-black">
+                    <h3>
+                        The hidden slide on eval!
+                    </h3>
+
+                    <h4>
+                        <strong class="hljs-keyword">eval</strong> function can be called:
+                    </h4>
+
+                    <ul>
+                        <li>
+                            Directly
+                        </li>
+                        <li>
+                            Indirectly
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+
+            <section id="eval-directly">
+                <p>
+                    When eval is called directly <strong class="hljs-string">this</strong> point to surrounding eval context
+                </p>
+
+                <pre class="block-code" contenteditable="true">
+                <code class="line-numbers">
+let x = 'global';
+
+function directly() {
+
+    let x = 'local';
+    console.log(eval('x')); // local
+}</code>
+                </pre>
+            </section>
+
+            <section id="eval-indirectly">
+                <p>
+                    When eval is called indirectly <strong class="hljs-string">this</strong> always point to the global object
+                </p>
+
+                <pre class="block-code" contenteditable="true">
+                <code class="line-numbers">
+let x = 'global';
+
+function indirectly() {
+    let x = 'locals';
+    console.log(window.eval('x'));
+    console.log(eval.call(null, 'x'));
+    console.log(eval.apply(null, ['x']));
+    console.log(eval.bind(null, 'x')())
+}
+
+indirectly();</code>
+                </pre>
+            </section>
+        </section>
+
     </div>
 </div>
 
