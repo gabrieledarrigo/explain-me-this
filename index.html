@@ -38,24 +38,24 @@
             display: none;
         }
 
-        .hidden-link {
+        section a.hidden-link {
             color: #FFFFFF;
             text-decoration: none;
         }
 
-        .hidden-link:active,
-        .hidden-link:focus,
-        .hidden-link:hover,
-        .hidden-link:visited {
-            cursor: text;
-            text-decoration: none;
+         a.hidden-link:active,
+         a.hidden-link:focus,
+         a.hidden-link:hover,
+         a.hidden-link:visited {
+             color: #FFFFFF;
+             cursor: text;
+             text-decoration: none;
         }
 
         .background-black {
             background-color: rgba(0, 0, 0, 0.9);
             padding: 25px;
         }
-
     </style>
 </head>
 
@@ -479,6 +479,12 @@ setInterval(counter.increment.bind(counter), 1000);</code>
             <h2>
                 Thank you!
             </h2>
+
+            <small>
+                <a class="hidden-link" href="#exercises">
+                    Exercises
+                </a>
+            </small>
         </section>
 
         <section id="eval">
@@ -515,10 +521,23 @@ setInterval(counter.increment.bind(counter), 1000);</code>
 let x = 'global';
 
 function directly() {
-
     let x = 'local';
     console.log(eval('x')); // local
-}</code>
+}
+
+directly();
+
+// Point depending on the context;
+function nonStrict() {
+    console.log(eval('this')); // window
+}
+nonStrict();
+
+function strict() {
+    'use strict';
+    console.log(eval('this')); // undefined
+}
+strict();</code>
                 </pre>
             </section>
 
@@ -534,16 +553,45 @@ let x = 'global';
 function indirectly() {
     let x = 'locals';
     console.log(window.eval('x'));
-    console.log(eval.call(null, 'x'));
-    console.log(eval.apply(null, ['x']));
-    console.log(eval.bind(null, 'x')())
 }
 
-indirectly();</code>
+indirectly();
+
+// Let's try with this
+let obj = {
+    indirectly: function() {
+        console.log(window.eval('this'));
+    }
+};
+
+obj.indirectly();</code>
                 </pre>
             </section>
         </section>
 
+        <section id="exercises" data-background="http://i.giphy.com/cTdsso3i4oGdO.gif">
+            <div class="background-black">
+                <h2>Exercises</h2>
+
+                <ul>
+                    <li>
+                        <a href="http://codepen.io/anon/pen/bByGXr?editors=0012">
+                            First
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://codepen.io/anon/pen/NbVWQa?editors=0012">
+                            Second
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://codepen.io/anon/pen/rWgNpv?editors=0012">
+                            oledata
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
     </div>
 </div>
 
